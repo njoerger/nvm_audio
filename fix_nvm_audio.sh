@@ -23,10 +23,10 @@ chmod 600 /tmp/audio.mp3
 echo "Checking the audio file is correct"
 if [[ $(shasum -a 512 /tmp/audio.mp3 | awk '{print $1}') == $(cat /tmp/audio_hash) ]]; then
 	echo "Audio file was correct. Placing audio file in the right location"
-	cp /tmp/audio.mp3 ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/$(ls ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi | tail -n 1)/dist/mp3/primaryRingtone.mp3
-	cp /tmp/audio.mp3 ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/$(ls ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi | tail -n 1)/dist/mp3/secondaryRingtone.mp3
+	cp /tmp/audio.mp3 ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/$(ls -t ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi | head -n 1)/dist/mp3/primaryRingtone.mp3
+	cp /tmp/audio.mp3 ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/$(ls -t ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi | head -n 1)/dist/mp3/secondaryRingtone.mp3
 
-	if [[ $(shasum -a 512 ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/$(ls ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/ | tail -n 1)/dist/mp3/primaryRingtone.mp3 | awk '{print $1}') == $(cat /tmp/audio_hash) && $(shasum -a 512 ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/$(ls ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/ | tail -n 1)/dist/mp3/secondaryRingtone.mp3 | awk '{print $1}') == $(cat /tmp/audio_hash)  ]]; then
+	if [[ $(shasum -a 512 ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/$(ls -t ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/ | head -n 1)/dist/mp3/primaryRingtone.mp3 | awk '{print $1}') == $(cat /tmp/audio_hash) && $(shasum -a 512 ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/$(ls -t ~/Library/Application\ Support/Google/Chrome/Default/Extensions/jahbgfelgdkpjhbcggnkfglaldkhodmi/ | head -n 1)/dist/mp3/secondaryRingtone.mp3 | awk '{print $1}') == $(cat /tmp/audio_hash)  ]]; then
 		echo "Move was successful. Please restart the extension"
 		exit 0
 	else
